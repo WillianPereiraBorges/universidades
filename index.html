@@ -1,384 +1,294 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ENEM Fácil</title>
+  <title>Universidades - ENEM Fácil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      color: #333;
-      transition: background-color 0.3s, color 0.3s;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
     }
-
-    /* --- Modo escuro --- */
-    body.dark-mode {
-      background-color: #121212;
-      color: #e0e0e0;
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
     }
-
-    body.dark-mode header {
-      background: linear-gradient(135deg, #00364d, #004d66);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    body.dark-mode nav {
-      background: #00364d;
+    .card-hover {
+      transition: all 0.3s ease;
     }
-
-    body.dark-mode nav a {
-      color: #b0c7d4;
-    }
-
-    body.dark-mode nav a:hover {
-      color: #90e0ef;
-    }
-
-    body.dark-mode section {
-      background: #1e1e1e;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    body.dark-mode section h2 {
-      color: #90e0ef;
-      border-bottom: 2px solid #90e0ef;
-    }
-
-    body.dark-mode ul li {
-      background: #2a2a2a;
-    }
-
-    body.dark-mode .card {
-      background: #2a2a2a;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-    }
-
-    body.dark-mode footer {
-      background: #004d66;
-    }
-
-    /* --- Cabeçalho --- */
-    header {
-      background: linear-gradient(135deg, #005f86, #0077b6);
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      position: relative;
-    }
-
-    #dark-mode-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-
-    #dark-mode-toggle:hover {
-      color: #90e0ef;
-    }
-
-    header h1 {
-      font-size: 2rem;
-      margin: 0;
-    }
-
-    header p {
-      font-size: 1.1rem;
-      margin: 10px 0 0;
-    }
-
-    /* --- Navegação --- */
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      background: #005f86;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 8px 15px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #90e0ef;
-    }
-
-    /* --- Seções --- */
-    section {
-      padding: 20px;
-      max-width: 1000px;
-      margin: 30px auto;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s, box-shadow 0.3s;
-    }
-
-    section h2 {
-      color: #0077b6;
-      text-align: center;
-      border-bottom: 2px solid #0077b6;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    ul li {
-      padding: 10px;
-      background: #e0f7fa;
-      margin: 5px 0;
-      border-radius: 5px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #0077b6;
-      color: white;
-      margin-top: 30px;
-      font-size: 0.9rem;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: auto;
-      max-height: 400px;
-      object-fit: cover;
-      margin-top: 20px;
-      border-bottom: 3px solid #0077b6;
-    }
-
-    /* --- Cards da Equipe --- */
-    .cards-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .card {
-      background: #f9f9f9;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      flex: 1 1 250px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
+    .card-hover:hover {
       transform: translateY(-5px);
-    }
-
-    .card img {
-      width: 100px;
-      height: 100px;
-      margin-bottom: 15px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    /* --- Botão centralizado --- */
-    .container-ajuda {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .container-ajuda a {
-      text-decoration: none;
-      color: #fff;
-      background-color: #007bff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-    }
-
-    .container-ajuda a:hover {
-      background-color: #0056b3;
-    }
-
-    /* --- Responsividade --- */
-    @media (max-width: 768px) {
-      header {
-        padding: 1.5rem;
-      }
-
-      header h1 {
-        font-size: 1.8rem;
-      }
-
-      header p {
-        font-size: 1rem;
-      }
-
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      nav a {
-        margin: 5px 0;
-      }
-
-      .card {
-        flex: 1 1 90%;
-      }
-
-      section {
-        margin: 20px 10px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-
-      header p {
-        font-size: 0.95rem;
-      }
-
-      #dark-mode-toggle {
-        top: 10px;
-        right: 10px;
-        font-size: 20px;
-      }
-
-      .hero-image {
-        max-height: 250px;
-      }
-
-      .card img {
-        width: 80px;
-        height: 80px;
-      }
-
-      .container-ajuda a {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-      }
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                  0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
   </style>
 </head>
-<body>
-  <header>
-    <button id="dark-mode-toggle" aria-label="Alternar modo escuro">🌙</button>
-    <h1>ENEM Fácil</h1>
-    <p>Dicas, cursos e conteúdos para melhorar seu desempenho no ENEM</p>
+
+<body class="h-full bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+
+  <!-- HEADER -->
+  <header class="bg-blue-200 dark:bg-blue-900 shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-3 sm:py-4">
+        <a href="centrodeestudo.html" class="flex items-center space-x-3 hover:opacity-80">
+          <div class="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a7 7 0 00-4 12.9V18a1 1 0 001 1h6a1 1 0 001-1v-3.1A7 7 0 0012 2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 21h6" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">ENEM Fácil</h1>
+            <p class="text-xs sm:text-sm text-blue-700 dark:text-blue-400">Universidades do Brasil</p>
+          </div>
+        </a>
+
+        <div class="flex space-x-2 sm:space-x-4">
+          <a href="/front/centrodeestudo.html" title="Voltar para a Home"
+            class="p-2 rounded-lg bg-blue-100 dark:bg-blue-800 hover:bg-blue-300 dark:hover:bg-blue-700">
+            <svg class="w-5 h-5 text-blue-700 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" />
+            </svg>
+          </a>
+
+          <!-- BOTÃO MODO ESCURO -->
+          <button id="darkModeToggle"
+            class="p-2 rounded-lg bg-blue-100 dark:bg-blue-800 hover:bg-blue-300 dark:hover:bg-blue-700">
+            <svg id="moonIcon" class="w-5 h-5 text-gray-600 dark:text-gray-300 block dark:hidden" fill="currentColor"
+              viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+            </svg>
+            <svg id="sunIcon" class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden dark:block" fill="currentColor"
+              viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm6 8a1 1 0 000-2h1a1 1 0 100 2h-1zM4 11a1 1 0 000-2H3a1 1 0 100 2h1zm6 7a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#equipe">Equipe</a>
-    <a href="#contato">Contato</a>
-  </nav>
+  <!-- CONTEÚDO -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 fade-in space-y-8">
+    
+    <!-- FILTROS -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-5 sm:p-6">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">🏛️ Buscar Universidades</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Tipo</label>
+          <select id="filtroTipo" class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+            <option value="">Todos</option>
+            <option value="publica">Pública</option>
+            <option value="privada">Privada</option>
+          </select>
+        </div>
 
-  <img class="hero-image" src="/img/imagemrepresentativa3.jpeg" alt="Pessoas estudando">
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Estado</label>
+          <select id="filtroEstado" class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+            <option value="">Todos</option>
+            <option value="AC">Acre</option><option value="AL">Alagoas</option><option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option><option value="BA">Bahia</option><option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option><option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option><option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option><option value="PA">Pará</option><option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option><option value="PE">Pernambuco</option><option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option><option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option><option value="RR">Roraima</option><option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option><option value="SE">Sergipe</option><option value="TO">Tocantins</option>
+          </select>
+        </div>
 
-  <section id="sobre">
-    <h2>Sobre a Instituição</h2>
-    <p>O ENEM Fácil é um projeto educacional que busca auxiliar estudantes de todo o Brasil com conteúdo de qualidade, simulados e dicas exclusivas para conquistar a tão sonhada vaga na universidade.</p>
-  </section>
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Nome</label>
+          <input id="buscaNome" type="text" placeholder="Ex: USP, UFRJ..."
+            class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+        </div>
 
-  <section id="ajuda">
-    <div class="container-ajuda">
-      <h2>Como podemos ajudar?</h2>
-      <a href="/front/centrodeestudo.html">Clique aqui para podermos te ajudar!</a>
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Ordenar por</label>
+          <select id="filtroOrdenar" class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+            <option value="">Padrão</option>
+            <option value="avaliacao">Maior Avaliação</option>
+            <option value="estado">Estado (A–Z)</option>
+            <option value="nome">Nome (A–Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-end mt-4 space-y-3 sm:space-y-0 sm:space-x-3">
+        <button onclick="filtrarUniversidades()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg w-full sm:w-auto">
+          🔍 Buscar
+        </button>
+        <button onclick="mostrarFormulario()" class="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg w-full sm:w-auto">
+          ➕ Adicionar Universidade
+        </button>
+      </div>
     </div>
-  </section>
 
-  <section id="equipe">
-    <h2>Nossa Equipe</h2>
-    <div class="cards-container">
-      <div class="card">
-        <img src="/img/Castelo.png" alt="Nicolas Castelo">
-        <h3>Nicolas Castelo</h3>
-        <p>Programmer</p>
-      </div>
-      <div class="card">
-        <img src="/img/Santiago.jpg" alt="Gabriel Santiago">
-        <h3>Gabriel Santiago</h3>
-        <p>Manager do projeto</p>
-      </div>
-      <div class="card">
-        <img src="/img/Rayca.jpg" alt="Rayca Almeida">
-        <h3>Rayca Almeida</h3>
-        <p>Designer</p>
-      </div>
-      <div class="card">
-        <img src="/img/susu.jpg" alt="Suellen">
-        <h3>Suellen</h3>
-        <p>Designer</p>
-      </div>
-      <div class="card">
-        <img src="/img/bilau2.jpg" alt="Gabriel Pereira">
-        <h3>Gabriel Pereira</h3>
-        <p>Vice-manager</p>
-      </div>
-      <div class="card">
-        <img src="/img/KAuã.png" alt="Kauã Maciel">
-        <h3>Kauã Maciel</h3>
-        <p>Programmer</p>
-      </div>
-      <div class="card">
-        <img src="/img/willian.jpg" alt="Wilian Borges">
-        <h3>Wilian Borges</h3>
-        <p>Programmer</p>
-      </div>
-    </div>
-  </section>
+    <!-- FORM -->
+    <form id="formUniversidade" onsubmit="adicionarUniversidade(event)"
+      class="hidden bg-white dark:bg-gray-800 rounded-xl shadow-lg p-5 sm:p-6 space-y-3">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white">🌟 Adicionar Nova Universidade</h2>
 
-  <section id="contato">
-    <h2>Entre em Contato</h2>
-    <p>Envie um e-mail para <strong>enemfácilCL@gmail.com</strong></p>
-  </section>
+      <select id="tipo" required class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+        <option value="">Selecione o tipo</option>
+        <option value="publica">Pública</option>
+        <option value="privada">Privada</option>
+      </select>
 
-  <footer>
-    <p>&copy; 2025 ENEM Fácil. Todos os direitos reservados.</p>
+      <input id="nome" type="text" placeholder="Nome da universidade" required
+        class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+
+      <textarea id="historia" placeholder="Breve descrição" required
+        class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white"></textarea>
+
+      <input id="estado" type="text" placeholder="Estado (Ex: SP)" required maxlength="2"
+        class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+
+      <input id="cidade" type="text" placeholder="Cidade" required
+        class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+
+      <div>
+        <input id="imagem" type="file" accept="image/*" required onchange="previewImagem(event)"
+          class="w-full p-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg">
+        <img id="preview" class="mt-3 rounded-lg max-h-48 hidden object-cover" alt="Pré-visualização da imagem">
+      </div>
+
+      <input id="contato" type="text" placeholder="Link do site (Ex: www.usp.br)" required
+        class="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white">
+
+      <button type="submit"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg w-full">
+        Salvar Universidade
+      </button>
+    </form>
+
+    <div id="listaUniversidades" class="space-y-6"></div>
+  </main>
+
+  <!-- BOTÃO TOPO -->
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao Topo"
+    class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg z-40">
+    ⬆️
+  </button>
+
+  <!-- RODAPÉ -->
+  <footer class="mt-10 py-6 bg-blue-200 dark:bg-blue-900 text-center text-gray-800 dark:text-gray-200 text-sm sm:text-base">
+    <p>© 2025 ENEM Fácil — Desenvolvido com ❤️ para estudantes brasileiros 🇧🇷</p>
   </footer>
 
+  <!-- SCRIPT -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggleButton = document.getElementById("dark-mode-toggle");
-      const body = document.body;
-      const heroImage = document.querySelector(".hero-image");
-      const darkModeEnabled = localStorage.getItem("darkMode") === "enabled";
+    const html = document.documentElement;
+    const darkModeToggle = document.getElementById('darkModeToggle');
 
-      if (darkModeEnabled) {
-        body.classList.add("dark-mode");
-        heroImage.style.filter = "brightness(0.7)";
-      }
-
-      toggleButton.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-        if (body.classList.contains("dark-mode")) {
-          localStorage.setItem("darkMode", "enabled");
-          heroImage.style.filter = "brightness(0.7)";
-        } else {
-          localStorage.setItem("darkMode", "disabled");
-          heroImage.style.filter = "brightness(1)";
-        }
-      });
+    if (localStorage.getItem('theme') === 'dark') html.classList.add('dark');
+    darkModeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
     });
+
+    const placeholderUrl = (text) => `https://via.placeholder.com/600x400/3B82F6/ffffff?text=${encodeURIComponent(text)}`;
+    let universidades = JSON.parse(localStorage.getItem('universidades')) || [
+      { nome: 'USP', tipo: 'publica', estado: 'SP', cidade: 'São Paulo', avaliacao: 4.8, historia: 'Fundada em 1934.', contato: 'www.usp.br', imagem: placeholderUrl('USP') },
+      { nome: 'UFRJ', tipo: 'publica', estado: 'RJ', cidade: 'Rio de Janeiro', avaliacao: 4.6, historia: 'Criada em 1920.', contato: 'www.ufrj.br', imagem: placeholderUrl('UFRJ') },
+    ];
+
+    function exibirUniversidades(lista) {
+      const container = document.getElementById('listaUniversidades');
+      container.innerHTML = lista.length ? lista.map(u => `
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+          <div class="flex flex-col md:flex-row">
+            <img class="w-full h-48 md:w-64 object-cover" src="${u.imagem}" alt="${u.nome}">
+            <div class="p-6 flex-1">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">${u.nome}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">${u.historia}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-300"><strong>📍</strong> ${u.cidade}, ${u.estado.toUpperCase()} (${u.tipo === 'publica' ? 'Pública' : 'Privada'})</p>
+              <p class="text-yellow-500 mt-1">⭐ ${u.avaliacao?.toFixed(1) || "4.5"}</p>
+              <a href="http://${u.contato}" target="_blank" class="text-blue-700 dark:text-blue-400 hover:underline mt-2 inline-block">🔗 Site Oficial</a>
+              <button onclick="removerUniversidade('${u.nome}')" class="mt-3 bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-lg text-sm">🗑️ Remover</button>
+            </div>
+          </div>
+        </div>`).join('') : `<p class="text-center text-gray-500">Nenhuma universidade encontrada.</p>`;
+    }
+
+    function filtrarUniversidades() {
+      const tipo = document.getElementById('filtroTipo').value;
+      const estado = document.getElementById('filtroEstado').value;
+      const nomeBusca = document.getElementById('buscaNome').value.toLowerCase().trim();
+      const ordenar = document.getElementById('filtroOrdenar').value;
+
+      let filtradas = universidades.filter(u =>
+        (!tipo || u.tipo === tipo) &&
+        (!estado || u.estado.toLowerCase() === estado.toLowerCase()) &&
+        (!nomeBusca || u.nome.toLowerCase().includes(nomeBusca))
+      );
+
+      if (ordenar === 'avaliacao') filtradas.sort((a, b) => b.avaliacao - a.avaliacao);
+      if (ordenar === 'estado') filtradas.sort((a, b) => a.estado.localeCompare(b.estado));
+      if (ordenar === 'nome') filtradas.sort((a, b) => a.nome.localeCompare(b.nome));
+
+      exibirUniversidades(filtradas);
+    }
+
+    function adicionarUniversidade(e) {
+      e.preventDefault();
+      const file = document.getElementById('imagem').files[0];
+      const reader = new FileReader();
+      let contato = document.getElementById('contato').value.trim().replace(/^https?:\/\//, '');
+
+      reader.onload = function(evt) {
+        const nova = {
+          nome: document.getElementById('nome').value.trim(),
+          tipo: document.getElementById('tipo').value,
+          estado: document.getElementById('estado').value.toUpperCase().trim(),
+          cidade: document.getElementById('cidade').value.trim(),
+          historia: document.getElementById('historia').value.trim(),
+          contato,
+          imagem: evt.target.result,
+          avaliacao: 4.5
+        };
+        universidades.push(nova);
+        localStorage.setItem('universidades', JSON.stringify(universidades));
+        document.getElementById('formUniversidade').reset();
+        document.getElementById('preview').classList.add('hidden');
+        document.getElementById('formUniversidade').classList.add('hidden');
+        filtrarUniversidades();
+        alert('🎓 Universidade adicionada com sucesso!');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removerUniversidade(nome) {
+      universidades = universidades.filter(u => u.nome !== nome);
+      localStorage.setItem('universidades', JSON.stringify(universidades));
+      filtrarUniversidades();
+    }
+
+    function mostrarFormulario() {
+      document.getElementById('formUniversidade').classList.toggle('hidden');
+    }
+
+    function previewImagem(e) {
+      const img = document.getElementById('preview');
+      img.src = URL.createObjectURL(e.target.files[0]);
+      img.classList.remove('hidden');
+    }
+
+    filtrarUniversidades();
   </script>
+
 </body>
 </html>
